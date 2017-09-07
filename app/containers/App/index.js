@@ -13,6 +13,8 @@
 
 import React from 'react';
 
+import Layout from 'components/Layout';
+
 export default class App extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
   static propTypes = {
@@ -21,9 +23,7 @@ export default class App extends React.PureComponent { // eslint-disable-line re
 
   render() {
     return (
-      <div>
-        {React.Children.toArray(this.props.children)}
-      </div>
+      <Layout children={this.props.children} />
     );
   }
 }
