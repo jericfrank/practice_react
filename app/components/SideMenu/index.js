@@ -4,33 +4,45 @@
 *
 */
 
+import _ from 'lodash';
 import React from 'react';
 // import styled from 'styled-components';
 
+import { browserHistory } from 'react-router';
 import { Menu, Label } from 'semantic-ui-react';
 
+import { MENU_ROUTES } from './constants';
+
 class SideMenu extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
-  state = { item: 'inbox' };
+  constructor () {
+    super();
+
+    this.renderItems = this.renderItems.bind( this );
+  }
+
+  state = { item: '/inbox' };
 
   handleItemClick = (e, { name }) => {
     this.setState({ item: name });
+
+    browserHistory.push( name );
   };
 
-  render() {
+  renderItems( value, index ) {
     const { item } = this.state;
 
     return (
+      <Menu.Item key={index} name={value.path} active={item === value.path} onClick={this.handleItemClick}>
+        <Label color={value.color}>51</Label>
+        {value.name}
+      </Menu.Item>
+    );
+  }
+
+  render() {
+    return (
       <Menu pointing secondary vertical>
-        <Menu.Item name='inbox' active={item === 'inbox'} onClick={this.handleItemClick}>
-          <Label>51</Label>
-          Inbox
-        </Menu.Item>
-        <Menu.Item name='sent' active={item === 'sent'} onClick={this.handleItemClick}>
-          Sent Items
-        </Menu.Item>
-        <Menu.Item name='trash' active={item === 'trash'} onClick={this.handleItemClick}>
-          Trash
-        </Menu.Item>
+        { _.map( MENU_ROUTES, this.renderItems ) }
       </Menu>
     );
   }
