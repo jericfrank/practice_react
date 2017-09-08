@@ -9,7 +9,7 @@ import React from 'react';
 // import styled from 'styled-components';
 
 import { browserHistory } from 'react-router';
-import { Menu, Label } from 'semantic-ui-react';
+import { Menu, Label, Button, Icon } from 'semantic-ui-react';
 
 import { MENU_ROUTES } from './constants';
 
@@ -42,6 +42,9 @@ class SideMenu extends React.PureComponent { // eslint-disable-line react/prefer
   render() {
     return (
       <Menu pointing secondary vertical>
+        <Menu.Item>
+          <Button primary fluid>Compose</Button>
+        </Menu.Item>
         { _.map( MENU_ROUTES, this.renderItems ) }
       </Menu>
     );
